@@ -42,7 +42,7 @@
     "eslint": "^8.22.0"
   },
   "peerDependencies": {
-    "ethers": "^5.7.2"
+    "ethers": "^6.16.0"
   },
   "dependencies": {
     "@unstoppabledomains/resolution": "^9.3.3",

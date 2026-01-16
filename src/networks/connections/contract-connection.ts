@@ -6,11 +6,11 @@ export class ContractConnection {
 	constructor(
 		connection: NetworkConnection,
 		address: string,
-		abi: ethers.ContractInterface,
+		abi: ethers.Interface | ethers.InterfaceAbi,
 	) {
 		this._connection = connection;
 		this._address = address;
-		this._provider = new ethers.providers.JsonRpcProvider(connection.rpcUrl);
+		this._provider = new ethers.JsonRpcProvider(connection.rpcUrl);
 		this._abi = abi;
 		this._contract = new ethers.Contract(address, abi, this._provider);
 	}
@@ -25,8 +25,8 @@ export class ContractConnection {
 		return this._address;
 	}
 
-	private _provider: ethers.providers.Provider;
-	public get provider(): ethers.providers.Provider {
+	private _provider: ethers.Provider;
+	public get provider(): ethers.Provider {
 		return this._provider;
 	}
 
@@ -39,5 +39,5 @@ export class ContractConnection {
 		return this._connection.networkName;
 	}
 
-	private _abi: ethers.ContractInterface;
+	private _abi: ethers.Interface | ethers.InterfaceAbi;
 }

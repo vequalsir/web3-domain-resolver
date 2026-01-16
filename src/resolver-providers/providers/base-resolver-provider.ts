@@ -86,7 +86,7 @@ export abstract class BaseResolverProvider implements IResolverProvider {
 			signerToUse = signer.connect(writeContractConnection.provider);
 		}
 		const contractConnected = writeContractConnection.contract.connect(signerToUse);
-		return contractConnected;
+		return contractConnected as any;
 	}
 
 	public async resolve(domainOrTld: string): Promise<IResolvedResource | undefined> {
@@ -142,7 +142,7 @@ export abstract class BaseResolverProvider implements IResolverProvider {
 
 		for (const readContractConnection of readContracts) {
 			try {
-				const reverseOfRes: ethers.BigNumber = await readContractConnection.contract.reverseOf(address);
+				const reverseOfRes: bigint = await readContractConnection.contract.reverseOf(address);
 				if (reverseOfRes) {
 					const tokenId = reverseOfRes.toString();
 					if (tokenId !== "0") {

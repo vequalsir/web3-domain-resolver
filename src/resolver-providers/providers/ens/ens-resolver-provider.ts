@@ -84,8 +84,8 @@ export class ENSResolverProvider extends BaseResolverProvider implements IResolv
 			return undefined;
 		}
 		try {
-			const labelHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(mappedName.domain));
-			const tokenId = ethers.BigNumber.from(labelHash).toString();
+			const labelHash = ethers.keccak256(ethers.toUtf8Bytes(mappedName.domain));
+			const tokenId = BigInt(labelHash).toString();
 			return tokenId;
 		} catch {
 			return undefined;

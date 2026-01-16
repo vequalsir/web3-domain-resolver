@@ -24,28 +24,28 @@ export class UDResolverProvider extends BaseResolverProvider implements IResolve
 		super(ProviderName.UD, UD_SUPPORTED_TLDS, [polygonReadContractAddress, ethReadContractAddress], [polygonReadContractAddress, ethReadContractAddress]);
 		this._resolution = new Resolution({
 			sourceConfig: {
-			  uns: {
-				locations: {
-				  Layer1: {
+				uns: {
+					locations: {
+						Layer1: {
+							url: ethereumConnection.rpcUrl,
+							network: 'mainnet',
+						},
+						Layer2: {
+							url: polygonConnection.rpcUrl,
+							network: 'polygon-mainnet',
+						},
+					},
+				},
+				zns: {
+					url: 'https://api.zilliqa.com',
+					network: 'mainnet',
+				},
+				ens: {
 					url: ethereumConnection.rpcUrl,
 					network: 'mainnet',
-				  },
-				  Layer2: {
-					url: polygonConnection.rpcUrl,
-					network: 'polygon-mainnet',
-				  },
 				},
-			  },
-			  zns: {
-				url: 'https://api.zilliqa.com',
-				network: 'mainnet',
-			  },
-			  ens: {
-				url: ethereumConnection.rpcUrl,
-				network: 'mainnet',
-			  },
 			},
-		  });
+		});
 	}
 
 	private _resolution;
@@ -59,7 +59,7 @@ export class UDResolverProvider extends BaseResolverProvider implements IResolve
 				namingService = NamingServiceName.UNS;
 			}
 			const nameHash = this._resolution.namehash(mappedName.fullname, namingService);
-			const tokenId = ethers.BigNumber.from(nameHash).toString();
+			const tokenId = BigInt(nameHash).toString();
 			return tokenId;
 		}
 		catch {
@@ -87,22 +87,22 @@ export class UDResolverProvider extends BaseResolverProvider implements IResolve
 	}
 
 	public override async getNameFromTokenId(tokenId: string, network?: NetworkName | undefined): Promise<string | undefined> {
-		const hash = ethers.BigNumber.from(tokenId).toHexString();
+		const hash = ethers.toBeHex(BigInt(tokenId));
 		let unhash: string | undefined;
 
 		try {
 			unhash = await this._resolution.unhash(hash, NamingServiceName.UNS);
-		} catch(e) {
+		} catch (e) {
 			console.error(e);
-		 }
+		}
 
 		if (!unhash) {
 			try {
 				unhash = await this._resolution.unhash(hash, NamingServiceName.ZNS);
 			}
-			catch(e){
+			catch (e) {
 				console.error(e);
-			 }
+			}
 		}
 
 		return unhash;

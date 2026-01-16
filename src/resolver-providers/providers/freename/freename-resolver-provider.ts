@@ -101,13 +101,13 @@ export class FreenameResolverProvider extends BaseResolverProvider implements IR
 	public async generateTokenId(mappedName: MappedName): Promise<string | undefined> {
 		let fullnameKeccak: string;
 		if (mappedName.domain) {
-			const domainKeccak = ethers.utils.solidityKeccak256(["string"], [mappedName.domain]);
-			fullnameKeccak = ethers.utils.solidityKeccak256(["string", "uint256"], [mappedName.tld, domainKeccak]);
+			const domainKeccak = ethers.solidityPackedKeccak256(["string"], [mappedName.domain]);
+			fullnameKeccak = ethers.solidityPackedKeccak256(["string", "uint256"], [mappedName.tld, domainKeccak]);
 		} else {
-			fullnameKeccak = ethers.utils.solidityKeccak256(["string"], [mappedName.tld]);
+			fullnameKeccak = ethers.solidityPackedKeccak256(["string"], [mappedName.tld]);
 		}
 		if (fullnameKeccak) {
-			const tokenId = ethers.BigNumber.from(fullnameKeccak).toString();
+			const tokenId = BigInt(fullnameKeccak).toString();
 			return tokenId;
 		}
 		return undefined;
