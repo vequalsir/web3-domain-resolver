@@ -42,11 +42,11 @@
     "eslint": "^8.22.0"
   },
   "peerDependencies": {
-    "ethers": "^5.6.9"
+    "ethers": "^5.7.2"
   },
   "dependencies": {
-    "@unstoppabledomains/resolution": "9.2.2",
-    "axios": "0.27.2",
+    "@unstoppabledomains/resolution": "^9.3.3",
+    "axios": "^1.6.0",
     "lodash.clonedeep": "4.5.0",
     "lodash.indexof": "4.0.5",
     "lodash.sortby": "4.7.0",
