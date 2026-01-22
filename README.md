@@ -1,3 +1,6 @@
+#Fork of the freename Domain Resolver
+This library has update dependacies to resolve known security issues.  Only a single issue remains, this is an alert on the Elliptic package used in resolving UD domains.  This issue affects all known versions of Elliptic.  This works 100% on Freename Domains. 
+
 # Web3 Domain Name Resolver
 This library is part of the Freename Web3 ecosystem and wants to help Web3 developers to easly support multiple Web3 Domain Providers. This library standardizes interfaces for interaction enabling to resolve and manage these supported providers: 
 * [ENS](https://ens.domains/) 
